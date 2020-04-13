@@ -421,7 +421,7 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
                 round(percentage, 2))
             current_message = (
                 "`[FILE - UPLOAD]`\n\n"
-                f"`Name  :`\n`{file_name}`\n\n"
+                f"`Name   :`\n`{file_name}`\n\n"
                 "`Status :`\n"
                 f"{prog_str}\n"
                 f"`{humanbytes(uploaded)} of {humanbytes(file_size)} "
