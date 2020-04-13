@@ -12,11 +12,12 @@ from shutil import which
 from os import remove
 from telethon import version
 
-from userbot import CMD_HELP, ALIVE_NAME
+from userbot import CMD_HELP, ALIVE_NAME, HEROKU_APP_NAME
 from userbot.events import register
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
+APPNAME = str(HEROKU_APP_NAME) if HEROKU_APP_NAME else uname().node
 # ============================================
 
 
@@ -124,12 +125,12 @@ async def amireallyalive(alive):
     """ For .on command, check if the bot is running.  """
     await alive.edit("`"
                      "Userbot is running now..\n"
-                     f"------------------------------------\n"
-                     f"•  User      : {DEFAULTUSER}\n"
+                     f"-----------------------------\n"
+                     f"•  App Name  : {APPNAME}\n"
                      f"•  Python    : {python_version()}\n"
                      f"•  Telethon  : {version.__version__}\n"
-                     f"•  App Name  : {HEROKU_APP_NAME}\n"
-                     f"------------------------------------\n"
+                     f"-----------------------------\n"
+                     f"•  User      : {DEFAULTUSER}\n"
                      "`")
 
 
