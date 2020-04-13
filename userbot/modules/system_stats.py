@@ -127,8 +127,8 @@ async def amireallyalive(alive):
                      "Userbot is running now..\n"
                      f"-----------------------------\n"
                      f"•  App Name  : {APPNAME}\n"
-                     f"•  Python    : {python_version()}\n"
-                     f"•  Telethon  : {version.__version__}\n"
+                     f"•  Python    : v{python_version()}\n"
+                     f"•  Telethon  : v{version.__version__}\n"
                      f"-----------------------------\n"
                      f"•  User      : {DEFAULTUSER}\n"
                      "`")
