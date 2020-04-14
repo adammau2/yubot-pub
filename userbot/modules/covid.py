@@ -10,16 +10,20 @@ from datetime import datetime
 from covid.api import CovId19Data
 from userbot import CMD_HELP
 from userbot.events import register
+import panda as pd
 
 @register(outgoing=True, pattern="^.covid (.*)")
 async def corona(event):
     await event.edit("`Processing...`")
     country = event.pattern_match.group(1)
     province = event.pattern_match.group(1)
+    covid_data= pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-17-2020.csv')
+    country_data = covid_data[covid_data['Country/Region']==(country)]
+    #c_data = covid_data[covid_data['Province/State']==(province)]
     #covid = Covid()
-    covid = CovId19Data(force=True)
+    #covid = CovId19Data(force=True)
     #country_data = covid.get_status_by_country_name(country)
-    country_data = covid.get_history_by_country(country)
+    #country_data = covid.get_history_by_country(country)
     if country_data:
         output_text =  f"`Confirmed   : {country_data['Confirmed']}`\n"
         output_text += f"`Active      : {country_data['Active']}`\n"
