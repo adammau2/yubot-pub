@@ -23,6 +23,7 @@ httplib2
 humanize
 lxml
 oauth2client
+panda
 Pillow
 psycopg2
 psycopg2-binary
