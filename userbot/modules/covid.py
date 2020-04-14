@@ -21,7 +21,7 @@ async def corona(event):
     #country_data = covid.get_status_by_country_name(country)
     country_data = covid.get_history_by_province(province)
     if country_data:
-        output_text =  f"`Confirmed   : {country_data['Confirmed']}`\n"
+        output_text =  f"`Confirmed   : {country_data[['Confirmed']]}`\n"
         output_text += f"`Active      : {country_data['Active']}`\n"
         output_text += f"`Deaths      : {country_data['Deaths']}`\n"
         output_text += f"`Recovered   : {country_data['Recovered']}`\n"
