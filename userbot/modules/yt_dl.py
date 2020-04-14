@@ -13,7 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with TG-UserBot.  If not, see <https://www.gnu.org/licenses/>.
-# Port by @adammau2
 
 
 import concurrent
@@ -78,16 +77,15 @@ warning = (
 )
 success = "`Successfully downloaded` {}"
 
-#@register(outgoing=True, pattern="^.ytdl(?: |$|)([\s\S]*)"
 
 @client.onMessage(
-        command="ytdl",
-        outgoing=True, regex=r"ytdl(?: |$|\n)([\s\S]*)"
-    )
-    async def yt_dl(event):
-        """Download videos from YouTube with their url in multiple formats."""
-        match = event.matches[0].group(1)
-        force_document = True
+    command="ytdl",
+    outgoing=True, regex=r"ytdl(?: |$|\n)([\s\S]*)"
+)
+async def yt_dl(event):
+    """Download videos from YouTube with their url in multiple formats."""
+    match = event.matches[0].group(1)
+    force_document = True
     if not match:
         await event.answer(
             "`.ytdl <url>` or `.ytdl <url1> .. <urln> format=<fmt>`"
@@ -270,9 +268,3 @@ async def fix_attributes(
             new_attributes.append(attr)
 
     return new_attributes, mime_type
-    
-    CMD_HELP.update({
-            "ytdl": 
-            ".ytdl <url1> .. <urln>"
-            "\nUsage: Download videos from YouTube with their url in multiple formats.\n"
-        })
