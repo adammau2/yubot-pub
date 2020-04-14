@@ -23,7 +23,7 @@ import os
 from telethon.tl import types
 from telethon.utils import get_attributes
 
-from userbot import client
+from userbot.events import register
 from userbot.utils.helpers import is_ffmpeg_there, ProgressCallback
 from userbot.helper_funcs.yt_dl import (
     extract_info, list_formats, ProgressHook, YTdlLogger
@@ -78,10 +78,11 @@ warning = (
 success = "`Successfully downloaded` {}"
 
 
-@client.onMessage(
-    command="ytdl",
-    outgoing=True, regex=r"ytdl(?: |$|\n)([\s\S]*)"
-)
+#@register.onMessage(
+#    command="ytdl",
+#    outgoing=True, regex=r"ytdl(?: |$|\n)([\s\S]*)"
+#)
+@register(outgoing=True, pattern=r"^.ytdl(?: |$|)([\s\S]*)")
 async def yt_dl(event):
     """Download videos from YouTube with their url in multiple formats."""
     match = event.matches[0].group(1)
