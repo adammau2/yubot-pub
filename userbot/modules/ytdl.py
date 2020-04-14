@@ -78,7 +78,11 @@ warning = (
 )
 success = "`Successfully downloaded` {}"
 
-@register(outgoing=True, pattern="^.ytdl(?: |$|)([\s\S]*)"
+#@register(outgoing=True, pattern="^.ytdl(?: |$|)([\s\S]*)"
+
+command="ytdl",
+    outgoing=True, regex=r"ytdl(?: |$|\n)([\s\S]*)"
+)
 async def yt_dl(event):
   """Download videos from YouTube with their url in multiple formats."""
     match = event.matches[0].group(1)
