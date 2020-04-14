@@ -26,7 +26,7 @@ from telethon.utils import get_attributes
 
 from userbot import client
 from userbot.utils.helpers import is_ffmpeg_there, ProgressCallback
-from userbot.utils.yt_dl import (
+from userbot.helper_funcs.yt_dl import (
     extract_info, list_formats, ProgressHook, YTdlLogger
 )
 
