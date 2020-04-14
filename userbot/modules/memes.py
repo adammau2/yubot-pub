@@ -1352,9 +1352,37 @@ async def nou(e):
         await e.edit("`\n┈╭╮╭╮\n┈┃┃┃┃\n╭┻┗┻┗╮`"
                      "`\n┃┈▋┈▋┃\n┃┈╭▋━╮━╮\n┃┈┈╭╰╯╰╯╮`"
                      "`\n┫┈┈  NoU\n┃┈╰╰━━━━╯`"
-"`\n┗━━┻━┛`")                   
+"`\n┗━━┻━┛`") 
 
-                                                                                    
+PENIS_TEMPLATE = """
+🍆🍆
+🍆🍆🍆
+  🍆🍆🍆
+    🍆🍆🍆
+     🍆🍆🍆
+       🍆🍆🍆
+        🍆🍆🍆
+         🍆🍆🍆
+          🍆🍆🍆
+          🍆🍆🍆
+      🍆🍆🍆🍆
+ 🍆🍆🍆🍆🍆🍆
+ 🍆🍆🍆  🍆🍆🍆
+    🍆🍆       🍆🍆
+"""
+@register(outgoing=True, pattern=r"^\.(?:penis|dick)\s?(.)?")
+async def emoji_penis(e):
+    emoji = e.pattern_match.group(1)
+
+    await e.edit("Dickifying...")
+    message = PENIS_TEMPLATE
+    if emoji:
+        message = message.replace('🍆', emoji)
+
+    await e.edit(message)
+
+
+
 CMD_HELP.update({
     "memes":
     ".cowsay\
@@ -1419,6 +1447,6 @@ CMD_HELP.update({
 \n\nAnd many more\
 \n.nou ; .bot ; .gey ; .gey ; .tf ; .paw ; .taco ; .nih ;\
 \n.fag ; .gtfo ; .stfu ; .lol ; .lool ; .fail ; .love\
-\n.rain ; .earth ; .iwi ; .sayhi\
+\n.rain ; .earth ; .iwi ; .sayhi ; .pen*$\
 \n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
 })
