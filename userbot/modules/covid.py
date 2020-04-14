@@ -14,7 +14,7 @@ from userbot.events import register
 @register(outgoing=True, pattern="^.covid (.*)")
 async def corona(event):
     await event.edit("`Processing...`")
-    covid = CovId19Data(force=False)
+	covid = CovId19Data(force=False)
 	country = event.pattern_match.group(1)
 	province = event.pattern_match.group(1)
     #covid = Covid()
