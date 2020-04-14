@@ -6,8 +6,7 @@
 # Port to UserBot by @MoveAngel
 
 from datetime import datetime
-#from covid import Covid
-from covid.api import CovId19Data
+from covid import Covid
 from userbot import CMD_HELP
 from userbot.events import register
 
@@ -15,24 +14,21 @@ from userbot.events import register
 async def corona(event):
     await event.edit("`Processing...`")
     country = event.pattern_match.group(1)
-    province = event.pattern_match.group(1)
-    #covid = Covid()
-    covid = CovId19Data(force=True)
-    #country_data = covid.get_status_by_country_name(country)
-    country_data = covid.get_history_by_province(province)
+    covid = Covid()
+    country_data = covid.get_status_by_country_name(country)
     if country_data:
-        #output_text =  f"`Confirmed   : {country_data['Confirmed']}`\n"
-        #output_text += f"`Active      : {country_data['Active']}`\n"
-        output_text += f"`Deaths      : {country_data['Deaths']}`\n"
-        output_text += f"`Recovered   : {country_data['Recovered']}`\n"
+        output_text =  f"`Confirmed   : {country_data['confirmed']}`\n"
+        output_text += f"`Active      : {country_data['active']}`\n"
+        output_text += f"`Deaths      : {country_data['deaths']}`\n"
+        output_text += f"`Recovered   : {country_data['recovered']}`\n"
         output_text += (
             "`Last update : "
-            f"{datetime.utcfromtimestamp(country_data['Last_Update'] // 1000).strftime('%Y-%m-%d %H:%M:%S')}`\n"
+            f"{datetime.utcfromtimestamp(country_data['last_update'] // 1000).strftime('%Y-%m-%d %H:%M:%S')}`\n"
         )
         output_text += f"Data provided by [Johns Hopkins University](https://j.mp/2xf6oxF)"
     else:
         output_text = "No information yet about this country!"
-    await event.edit(f"Corona Virus Info in {province}:\n\n{output_text}")
+    await event.edit(f"Corona Virus Info in {country}:\n\n{output_text}")
 
 
 CMD_HELP.update({
