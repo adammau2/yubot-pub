@@ -19,20 +19,20 @@ async def corona(event):
     province = event.pattern_match.group(1)
     #covid = Covid()
     #country_data = covid.get_status_by_country_name(country)
-    country_data = covid.get_history_by_country(country)
-    if country_data:
-        output_text =  f"`Confirmed   : {country_data['Confirmed']}`\n"
-        output_text += f"`Active      : {country_data['Active']}`\n"
-        output_text += f"`Deaths      : {country_data['Deaths']}`\n"
-        output_text += f"`Recovered   : {country_data['Recovered']}`\n"
-        output_text += (
-            "`Last update : "
-            f"{datetime.utcfromtimestamp(country_data['Last_Update'] // 1000).strftime('%Y-%m-%d %H:%M:%S')}`\n"
-        )
-        output_text += f"Data provided by [Johns Hopkins University](https://j.mp/2xf6oxF)"
-    else:
-        output_text = "No information yet about this country!"
-    await event.edit(f"Corona Virus Info in {country}:\n\n{output_text}")
+    country_data = covid.get_history_by_country("ireland")
+    #if country_data:
+    #    output_text =  f"`Confirmed   : {country_data['Confirmed']}`\n"
+    #    output_text += f"`Active      : {country_data['Active']}`\n"
+    #    output_text += f"`Deaths      : {country_data['Deaths']}`\n"
+    #    output_text += f"`Recovered   : {country_data['Recovered']}`\n"
+    #    output_text += (
+    #        "`Last update : "
+    #        f"{datetime.utcfromtimestamp(country_data['Last_Update'] // 1000).strftime('%Y-%m-%d %H:%M:%S')}`\n"
+    #    )
+    #    output_text += f"Data provided by [Johns Hopkins University](https://j.mp/2xf6oxF)"
+    #else:
+    #    output_text = "No information yet about this country!"
+    #await event.edit(f"Corona Virus Info in {country}:\n\n{output_text}")
 
 
 CMD_HELP.update({
