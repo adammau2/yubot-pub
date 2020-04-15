@@ -28,6 +28,7 @@ Pillow
 psycopg2
 psycopg2-binary
 pybase64
+pygithub
 pylast
 pySmartDL
 python-barcode
