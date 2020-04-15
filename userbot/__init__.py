@@ -161,6 +161,9 @@ QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN", None)
 GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
 GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
 
+# Lydia API
+LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
+
 # Setting Up CloudMail.ru and MEGA.nz extractor binaries,
 # and giving them correct perms to work properly.
 if not os.path.exists('bin'):
