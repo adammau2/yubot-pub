@@ -1,10 +1,10 @@
 # ported on OUB by @Mayur_Karaniya
 
-import github from Github
 import aiohttp
 import asyncio
 import os
 import time
+from github import Github
 from datetime import datetime
 from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
