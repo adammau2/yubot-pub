@@ -13,8 +13,8 @@ from userbot import CMD_HELP
 from userbot.events import register
 
 GITHUB = 'https://github.com'
-DEVICES_DATA = 'https://raw.githubusercontent.com/wulan17/' \
-               'certified-android-devices/master/devices.json'
+DEVICES_DATA = 'https://raw.githubusercontent.com/pbakondy/' \
+               'android-device-list/master/devices.json'
 
 
 @register(outgoing=True, pattern="^.magisk$")
