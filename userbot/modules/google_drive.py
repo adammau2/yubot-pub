@@ -17,7 +17,7 @@
 import io
 import os
 import pickle
-import base64s
+import base64
 import json
 import asyncio
 import math
