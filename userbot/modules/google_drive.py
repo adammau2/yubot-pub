@@ -217,6 +217,9 @@ async def get_raw_name(file_path):
     """ - Get file_name from file_path - """
     return file_path.split("/")[-1]
 
+async def get_raw_size(file_path):
+    """ - Get size_file from file_path - """
+    return file_path.split("/")[-1]
 
 async def get_mimeType(name):
     """ - Check mimeType given file - """
@@ -783,12 +786,14 @@ async def google_drive(gdrive):
         return await gdrive.delete()
     mimeType = await get_mimeType(file_path)
     file_name = await get_raw_name(file_path)
+    size_file = await get_raw_size(file_path)
     viewURL, downloadURL = await upload(
                          gdrive, service, file_path, file_name, mimeType)
     if viewURL and downloadURL:
         await gdrive.edit(
             "`[FILE - UPLOAD]`\n\n"
             f" • `Name     :` `{file_name}`\n"
+            f" • `Size     :` `{file_size}`\n"
             " • `Status   :` **OK**\n"
             f" • `URL      :` [{file_name}]({viewURL})\n"
             f" • `Download :` [{file_name}]({downloadURL})"
