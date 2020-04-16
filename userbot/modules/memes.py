@@ -1327,6 +1327,7 @@ async def paw(e):
         await e.edit("8===✊D")
         await e.edit("8===✊D💦")
         await e.edit("8====D💦💦")
+        await react.edit(choice(FACEREACTS))
 
 @register(outgoing=True, pattern="^.tf$")  
 async def tf(e):
