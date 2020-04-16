@@ -1307,7 +1307,7 @@ async def paw(e):
         await e.edit("`(=ↀωↀ=)")
 
 @register(outgoing=True, pattern="^.koc$")  
-async def paw(e):
+async def koc(e):
    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit("8✊===D")
         await e.edit("8=✊==D")
@@ -1327,7 +1327,7 @@ async def paw(e):
         await e.edit("8===✊D")
         await e.edit("8===✊D💦")
         await e.edit("8====D💦💦")
-        await react.edit(choice(FACEREACTS))
+        await e.edit(choice(FACEREACTS))
 
 @register(outgoing=True, pattern="^.tf$")  
 async def tf(e):
