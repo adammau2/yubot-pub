@@ -402,7 +402,6 @@ async def download_gdrive(gdrive, service, uri):
         await gdrive.respond(
             "`[FILE - UPLOAD]`\n\n"
             f" • `Name     :` `{file_name}`\n"
-            f" • `Size     :` `{file_size}`\n"
             " • `Status   :` **OK**\n"
             f" • `URL      :` [{file_name}]({result[0]})\n"
             f" • `Download :` [{file_name}]({result[1]})"
