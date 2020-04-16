@@ -278,7 +278,7 @@ async def download(gdrive, service, uri=None):
         status = "[FILE - UPLOAD]"
         if isfile(required_file_name):
             result = await upload(
-                     gdrive, service, required_file_name, file_name, mimeType)
+                     gdrive, service, required_file_name, file_name, mimeType, file_size)
             return await gdrive.respond(
                 f"`{status}`\n\n"
                 f" • `Name     :` `{file_name}`\n"
