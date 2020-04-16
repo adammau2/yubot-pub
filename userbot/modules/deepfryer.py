@@ -40,7 +40,7 @@ from telethon.tl.types import DocumentAttributeFilename
 from telethon import events
 
 
-@register(pattern="^.deepfry(?: |$)(.*)", outgoing=True) 
+@register(pattern="^.df(?: |$)(.*)", outgoing=True) 
 async def deepfryer(event):
     try:
         frycount = int(event.pattern_match.group(1))
