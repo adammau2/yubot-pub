@@ -43,6 +43,7 @@ sqlalchemy
 telethon
 telethon-session-sqlalchemy
 urbandict
+wget
 wikipedia
 telegraph
 python-dateutil
