@@ -4,7 +4,7 @@ async_generator
 bs4
 cowpy
 coffeehouse
-# cryptg
+cryptg
 cffi
 covid
 #covid-data-api
