@@ -179,6 +179,11 @@ async def dyno_usage(dyno):
 
     """ - Current - """
     Apps = result['apps']
+    if not Apps:
+        AppQuotaUsed = 0
+        AppPercentage = 0
+        AppHours = 0
+        AppMinutes = 0
     for apps in Apps:
         if apps.get('app_uuid') == app.id:
             App = apps
@@ -187,11 +192,6 @@ async def dyno_usage(dyno):
             AppHours = math.floor(AppQuotaUsed / 60)
             AppMinutes = math.floor(AppQuotaUsed % 60)
             break
-        else:
-            AppQuotaUsed = 0
-            AppPercentage = 0
-            AppHours = 0
-            AppMinutes = 0
 
     return await dyno.edit(
          "**Dyno Usage**:\n\n"
