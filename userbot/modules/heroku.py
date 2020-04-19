@@ -187,11 +187,11 @@ async def dyno_usage(dyno):
         else:
             continue
     try:
-        AppHours
-        AppMinutes
+        AppQuotaUsed
+        AppPercentage
     except NameError:
-        AppHours = 0
-        AppMinutes = 0
+        AppQuotaUsed = 0
+        AppPercentage = 0
 
     AppHours = math.floor(AppQuotaUsed / 60)
     AppMinutes = math.floor(AppQuotaUsed % 60)
