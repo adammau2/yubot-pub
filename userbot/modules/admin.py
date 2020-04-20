@@ -23,7 +23,7 @@ from telethon.tl.types import (PeerChat, ChannelParticipantsAdmins,
                                MessageEntityMentionName, MessageMediaPhoto,
                                ChannelParticipantsBots)
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from userbot.events import register
 
 # =================== CONSTANT ===================
@@ -392,11 +392,9 @@ async def muter(moot):
     """ Used for deleting the messages of muted people """
     try:
         from userbot.modules.sql_helper.spam_mute_sql import is_muted
-        from userbot.modules.sql_helper.gmute_sql import is_gmuted
     except AttributeError:
         return
     muted = is_muted(moot.chat_id)
-    gmuted = is_gmuted(moot.sender_id)
     rights = ChatBannedRights(
         until_date=None,
         send_messages=True,
@@ -413,6 +411,7 @@ async def muter(moot):
                 await moot.delete()
                 await moot.client(
                     EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+<<<<<<< HEAD
     for i in gmuted:
         if i.sender == str(moot.sender_id):
             await moot.delete()
@@ -497,6 +496,8 @@ async def gspider(gspdr):
                 BOTLOG_CHATID, "#GMUTE\n"
                 f"USER: [{user.first_name}](tg://user?id={user.id})\n"
                 f"CHAT: {gspdr.chat.title}(`{gspdr.chat_id}`)")
+=======
+>>>>>>> 5dd6707... modules: remove .gmute for good
 
 
 @register(outgoing=True, pattern="^.zombies(?: |$)(.*)", groups_only=False)
