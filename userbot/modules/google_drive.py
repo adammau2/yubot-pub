@@ -707,16 +707,18 @@ async def google_drive_managers(gdrive):
                 status = "[FILE - EXIST]"
             msg = (
                 f"`{status}`\n\n"
-                f"`Name     :`\n`{name_or_id}`\n"
+                f"`Name     :` `{name_or_id}`\n"
                 f"`ID       :` `{f_id}`\n"
             )
             if mimeType != "application/vnd.google-apps.folder":
                 msg += f"`Size     :` `{humanbytes(f_size)}`\n"
                 msg += f"`Download :` [{name_or_id}]({downloadURL})\n\n"
             else:
-                msg += f"`URL      :` [Open]({webViewLink})\n\n"
+                msg += f"`URL      :` [Open]({webViewLink})\n"
+                msg += f"`----------------------------------`\n\n"
             if description:
                 msg += f"`About    :`\n`{description}`\n\n"
+                msg += f"`----------------------------------`\n\n"
             reply += msg
         page_token = result.get('nextPageToken', None)
     await gdrive.edit(reply)
