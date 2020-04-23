@@ -671,7 +671,7 @@ async def google_drive_managers(gdrive):
             else:
                 reply += (
                     f"`{status}`\n\n"
-                    f"`Name   :`\n`{name}`\n"
+                    f"`Name   :` `{name}`\n"
                     "`Status :` `OK`\n\n"
                 )
         elif exe == "chck":
