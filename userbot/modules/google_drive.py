@@ -517,7 +517,7 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
                 round(percentage, 2))
             current_message = (
                 "`[FILE - UPLOAD]`\n\n"
-                f"`Name   :` `{file_name}`\n\n"
+                f"`Name   :` `{file_name}`\n"
                 "`Status :` "
                 f"{prog_str}\n"
                 f"`{humanbytes(uploaded)} of {humanbytes(file_size)} "
@@ -960,7 +960,7 @@ async def check_progress_for_dl(gdrive, gid, previous):
                 msg = (
                     "`[URI - DOWNLOAD]`\n\n"
                     f"`Name :` `{file.name}`\n"
-                    f"`Status` -> **{file.status.capitalize()}**\n"
+                    f"`Status` -> **{file.status.capitalize()}** | "
                     f"{prog_str}\n"
                     f"`{humanbytes(downloaded)} of {file.total_length_string()}"
                     f" @ {file.download_speed_string()}`\n"
@@ -976,8 +976,9 @@ async def check_progress_for_dl(gdrive, gid, previous):
             file = aria2.get_download(gid)
             complete = file.is_complete
             if complete:
-                return await gdrive.edit(f"`{file.name}`\n\n"
-                                         "Successfully downloaded...")
+                return await gdrive.edit("`[FILE - DOWNLOAD]`\n\n"
+                                        f"`Name   :` `{file.name}`\n"
+                                         "`Status :` **OK** - Successfully downloaded")
         except Exception as e:
             if " depth exceeded" in str(e):
                 file.remove(force=True)

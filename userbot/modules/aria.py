@@ -187,8 +187,9 @@ async def check_progress_for_dl(gid, event, previous):
                              for i in range(20 - math.floor(percentage / 5))]),
                     file.progress_string())
                 msg = (
-                    f"`Name :`\n`{file.name}`\n"
-                    f"`Status` -> **{file.status.capitalize()}**\n"
+                    "`[URI - DOWNLOAD]`\n\n"
+                    f"`Name :` `{file.name}`\n"
+                    f"`Status` -> **{file.status.capitalize()}** | "
                     f"{prog_str}\n"
                     f"`{humanbytes(downloaded)} of {file.total_length_string()}"
                     f" @ {file.download_speed_string()}`\n"
@@ -204,17 +205,21 @@ async def check_progress_for_dl(gid, event, previous):
             file = aria2.get_download(gid)
             complete = file.is_complete
             if complete:
-                return await event.edit(f"`{file.name}`\n\n"
-                                        "Successfully downloaded...")
+                return await event.edit("`[FILE - DOWNLOAD]`\n\n"
+                                        f"`Name   :` `{file.name}`\n"
+                                         "`Status :` **OK** - Successfully downloaded")
         except Exception as e:
             if " not found" in str(e) or "'file'" in str(e):
-                await event.edit("Download Canceled :\n`{}`".format(file.name))
+                await event.edit("Download Canceled : `{}`".format(file.name))
                 await sleep(2.5)
                 return await event.delete()
             elif " depth exceeded" in str(e):
                 file.remove(force=True)
                 await event.edit(
-                    "Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead."
+                    "`[URI - DOWNLOAD]`\n\n"
+                    f"`Name   :` `{file.name}`\n"
+                    "`Status :` **BAD**\n"
+                    "`Reason :` Auto cancelled download, URI/Torrent dead."
                     .format(file.name))
 
 
