@@ -374,7 +374,7 @@ async def download_gdrive(gdrive, service, uri):
                     f"{prog_str}\n"
                     f"`{humanbytes(downloaded)} of {humanbytes(file_size)} "
                     f"@ {humanbytes(speed)}`\n"
-                    f"`ETA` -> {time_formatter(eta)}"
+                    f"`ETA    :` {time_formatter(eta)}"
                 )
                 if display_message != current_message:
                     try:
@@ -522,7 +522,7 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
                 f"{prog_str}\n"
                 f"`{humanbytes(uploaded)} of {humanbytes(file_size)} "
                 f"@ {humanbytes(speed)}`\n"
-                f"`ETA` -> {time_formatter(eta)}"
+                f"`ETA    :` {time_formatter(eta)}"
             )
             if display_message != current_message:
                 try:
@@ -959,12 +959,12 @@ async def check_progress_for_dl(gdrive, gid, previous):
                     file.progress_string())
                 msg = (
                     "`[URI - DOWNLOAD]`\n\n"
-                    f"`Name :` `{file.name}`\n"
-                    f"`Status` -> **{file.status.capitalize()}** | "
+                    f"`Name   :` `{file.name}`\n"
+                    f"`Status :` **{file.status.capitalize()}** | "
                     f"{prog_str}\n"
                     f"`{humanbytes(downloaded)} of {file.total_length_string()}"
                     f" @ {file.download_speed_string()}`\n"
-                    f"`ETA` -> {file.eta_string()}\n"
+                    f"`ETA    :` {file.eta_string()}\n"
                 )
                 if msg != previous:
                     await gdrive.edit(msg)
