@@ -369,7 +369,7 @@ async def download_gdrive(gdrive, service, uri):
                     round(percentage, 2))
                 current_message = (
                     "`[FILE - DOWNLOAD]`\n\n"
-                    f"`Name   :` `{file_name}`\n\n"
+                    f"`Name   :` `{file_name}`\n"
                     "`Status :` "
                     f"{prog_str}\n"
                     f"`{humanbytes(downloaded)} of {humanbytes(file_size)} "
@@ -387,7 +387,7 @@ async def download_gdrive(gdrive, service, uri):
             f"`Name   :` `{file_name}`\n"
             f"`Size   :` `{humanbytes(file_size)}`\n"
             f"`Path   :` `{file_path}`\n"
-            "`Status : **OK** - Successfully downloaded"
+            "`Status :` **OK** - Successfully downloaded"
         )
         msg = await gdrive.respond("`Answer the question in your BOTLOG group`")
     async with gdrive.client.conversation(BOTLOG_CHATID) as conv:
