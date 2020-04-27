@@ -242,14 +242,19 @@ async def download(gdrive, service, uri=None):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
         required_file_name = None
     if uri:
+        workdir = os.getcwd()
         if isfile(uri) and uri.endswith(".torrent"):
-            downloads = aria2.add_torrent(uri,
-                                          uris=None,
-                                          options=None,
-                                          position=None)
+            downloads = aria2.add_torrent(
+                uri,
+                dict(dir=workdir + TEMP_DOWNLOAD_DIRECTORY.strip('.')),
+                uris=None,
+                position=None)
         else:
             uri = [uri]
-            downloads = aria2.add_uris(uri, options=None, position=None)
+            downloads = aria2.add_uris(
+                uri,
+                dict(dir=workdir + TEMP_DOWNLOAD_DIRECTORY.strip('.')),
+                position=None)
         gid = downloads.gid
         await check_progress_for_dl(gdrive, gid, previous=None)
         file = aria2.get_download(gid)
@@ -258,9 +263,9 @@ async def download(gdrive, service, uri=None):
             new_gid = await check_metadata(gid)
             await check_progress_for_dl(gdrive, new_gid, previous=None)
         try:
-            required_file_name = filenames
+            required_file_name = TEMP_DOWNLOAD_DIRECTORY + filenames
         except Exception:
-            required_file_name = filename
+            required_file_name = TEMP_DOWNLOAD_DIRECTORY + filename
     else:
         try:
             current_time = time.time()
