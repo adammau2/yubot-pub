@@ -34,7 +34,7 @@ async def speedtst(spd):
                    "Upload "
                    f"{speed_convert(result['upload'])} \n"
                    "Ping "
-                   f"{result['ping']} \n\n"
+                   f"{result['ping']}ms \n\n"
                    "Server "
                    f"{result['server']['sponsor']} ({result['server']['name']}) \n"
                    "ISP "
