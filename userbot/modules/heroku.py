@@ -27,7 +27,7 @@ useragent = (
           pattern=(
               "^.dyno "
               "(on|restart|off|usage|cancel deploy|get log|help|update)"
-              "(?: |$)")
+              "(?: (.*)|$)")
           )
 async def dyno_manage(dyno):
     """ - Restart/Kill dyno - """
@@ -184,18 +184,18 @@ async def dyno_manage(dyno):
         else:
             return
     elif exe == "cancel deploy":
-        """ - Don't support for user that have multiple build at same time - """
-        pending = False
-        builds = app.builds()
-        for build in builds:
-            if build.status == "pending":
-                build_id = build.id
-                build_app = build.app.id
-                build_app_name = build.app.name
-                pending = True
-                break
-        if pending is False:
-            return await dyno.edit("`No builds to cancel...`")
+        """ - Only cancel 1 recent builds from activity - """
+        try:
+            build_id = dyno.pattern_match.group(2)
+        except IndexError:
+            build = app.builds(order_by='created_at', sort='desc')[0]
+        else:
+            if build_id == '':
+                build = app.builds(order_by='created_at', sort='desc')[0]
+            else:
+                build = app.builds().get(build_id)
+        if build.status != "pending":
+            return await dyno.edit("`Zero active builds to cancel...`")
         headers = {
             'User-Agent': useragent,
             'Authorization': f'Bearer {HEROKU_API_KEY}',
