@@ -6,6 +6,7 @@
 """ Userbot initialization. """
 
 import os
+import heroku3
 
 from sys import version_info
 from logging import basicConfig, getLogger, INFO, DEBUG
@@ -70,6 +71,8 @@ PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 # Heroku Credentials for updater.
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
 HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+HEROKU_APP_NAME_FALLBACK = os.environ.get("HEROKU_APP_NAME_FALLBACK", None)
+HEROKU_API_KEY_FALLBACK = os.environ.get("HEROKU_API_KEY_FALLBACK", None)
 
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get(
@@ -189,6 +192,22 @@ else:
     # pylint: disable=invalid-name
     bot = TelegramClient("userbot", API_KEY, API_HASH)
 
+#######################################################################
+#                        Initialization main                      #
+heroku = heroku3.from_key(HEROKU_API_KEY_FALLBACK)
+mainn = None
+if HEROKU_API_KEY and HEROKU_APP_NAME:
+    mainn = heroku3.from_key(HEROKU_API_KEY)
+    try:
+        main_app = mainn.app(HEROKU_APP_NAME)
+    except HTTPError:
+        LOGS.info(
+            "Your HEROKU_API_KEY and HEROKU_APP_NAME"
+            " doesn't seem to be in the same account, or "
+            f"{HEROKU_APP_NAME} not found."
+        )
+        quit(1)
+#######################################################################
 
 async def check_botlog_chatid():
     if not BOTLOG_CHATID and LOGSPAMMER:
