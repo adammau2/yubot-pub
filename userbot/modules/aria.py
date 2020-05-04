@@ -6,7 +6,6 @@
 import aria2p
 import math
 import os
-from os.path import isfile, isdir, join
 from asyncio import sleep
 from subprocess import PIPE, Popen
 from userbot import LOGS, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
@@ -47,7 +46,10 @@ cmd = f"aria2c \
 --daemon=true \
 --allow-overwrite=true"
 
-aria2_is_running = subprocess_run(cmd)
+subprocess_run(cmd)
+if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+    os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip('.')
 
 aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=6800,
                                  secret=""))
@@ -56,17 +58,9 @@ aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=6800,
 @register(outgoing=True, pattern="^.amag(?: |$)(.*)")
 async def magnet_download(event):
     magnet_uri = event.pattern_match.group(1)
-    """ - Download files to local - """
-    if not isdir(TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-        required_file_name = None
     # Add Magnet URI Into Queue
     try:
-        workdir = os.getcwd()
-        download = aria2.add_magnet(magnet_uri,
-                                    dict(dir=workdir + TEMP_DOWNLOAD_DIRECTORY.strip('.')),
-                                    uris=None,
-                                    position=None)
+        download = aria2.add_magnet(magnet_uri)
     except Exception as e:
         LOGS.info(str(e))
         return await event.edit("Error:\n`" + str(e) + "`")
@@ -80,15 +74,10 @@ async def magnet_download(event):
 @register(outgoing=True, pattern="^.ator(?: |$)(.*)")
 async def torrent_download(event):
     torrent_file_path = event.pattern_match.group(1)
-    """ - Download files to local - """
-    if not isdir(TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-        required_file_name = None
     # Add Torrent Into Queue
     try:
-        workdir = os.getcwd()
         download = aria2.add_torrent(torrent_file_path,
-                                     dict(dir=workdir + TEMP_DOWNLOAD_DIRECTORY.strip('.')),
+                                     options=None,
                                      uris=None,
                                      position=None)
     except Exception as e:
@@ -100,14 +89,9 @@ async def torrent_download(event):
 @register(outgoing=True, pattern="^.aurl(?: |$)(.*)")
 async def aurl_download(event):
     uri = [event.pattern_match.group(1)]
-    """ - Download files to local - """
-    if not isdir(TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-        required_file_name = None
     try:  # Add URL Into Queue
-        workdir = os.getcwd()
         download = aria2.add_uris(uri,
-                                  dict(dir=workdir + TEMP_DOWNLOAD_DIRECTORY.strip('.')),
+                                  options=None,
                                   position=None)
     except Exception as e:
         LOGS.info(str(e))
@@ -226,12 +210,11 @@ async def check_progress_for_dl(gid, event, previous):
             await check_progress_for_dl(gid, event, previous)
             file = aria2.get_download(gid)
             complete = file.is_complete
-            file_path = TEMP_DOWNLOAD_DIRECTORY + file.name
             if complete:
                 return await event.edit("`[FILE - DOWNLOAD]`\n\n"
                                         f"`Name   :` `{file.name}`\n"
                                         f"`Size   :` `{file.total_length_string()}`\n"
-                                        f"`Path   :` `{file_path}`\n"
+                                        f"`Path   :` `{TEMP_DOWNLOAD_DIRECTORY + file.name}`\n"
                                          "`Status :` **OK** - Successfully downloaded")
         except Exception as e:
             if " not found" in str(e) or "'file'" in str(e):
