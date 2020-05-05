@@ -238,7 +238,7 @@ async def download(gdrive, service, uri=None):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
         required_file_name = None
     if uri:
-        workdir = os.getcwd()
+        full_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip('.')
         if isfile(uri) and uri.endswith(".torrent"):
             downloads = aria2.add_torrent(
                 uri,
@@ -421,7 +421,7 @@ async def download_gdrive(gdrive, service, uri):
                     current_message = (
                         "`[FILE - DOWNLOAD]`\n\n"
                         f"`Name`   : `{file_name}`\n"
-                        f"`Status` :{prog_str}\n"
+                        f"`Status` : {prog_str}\n"
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}"
                         f" @ {humanbytes(speed)}`\n"
                         f"`ETA`    : {time_formatter(eta)}"
@@ -460,7 +460,7 @@ async def download_gdrive(gdrive, service, uri):
                     current_message = (
                         "`[FILE - DOWNLOAD]`\n\n"
                         f"`Name`   : `{file_name}`\n"
-                        f"`Status` :{prog_str}\n"
+                        f"`Status` : {prog_str}\n"
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}"
                         f" @ {humanbytes(speed)}`\n"
                         f"`ETA`    : {time_formatter(eta)}"
@@ -605,7 +605,7 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
             current_message = (
                 "`[FILE - UPLOAD]`\n\n"
                 f"`Name`   : `{file_name}`\n"
-                f"`Status` :{prog_str}\n"
+                f"`Status` : {prog_str}\n"
                 f"`{humanbytes(uploaded)} of {humanbytes(file_size)} "
                 f"@ {humanbytes(speed)}`\n"
                 f"`ETA`    : {time_formatter(eta)}"
