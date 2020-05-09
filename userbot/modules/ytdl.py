@@ -24,7 +24,7 @@ from asyncio import sleep
 from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
 
 #from uniborg.util import admin_cmd, humanbytes, progress, time_formatter
-from userbot.modules.upload_download import progress, humanbytes, time_formatter
+from userbot.utils.progress import progress
 from PIL import Image
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
