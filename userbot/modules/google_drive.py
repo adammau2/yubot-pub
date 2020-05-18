@@ -453,7 +453,7 @@ async def download_gdrive(gdrive, service, uri):
                         f"`ETA`    : {time_formatter(eta)}"
                     )
                     if round(
-                      diff % 10.00) == 0 and (display_message
+                      diff % 15.00) == 0 and (display_message
                                               != current_message) or (
                       downloaded == file_size):
                         await gdrive.edit(current_message)
@@ -498,7 +498,9 @@ async def download_gdrive(gdrive, service, uri):
                         f" @ {humanbytes(speed)}`\n"
                         f"`ETA`    : {time_formatter(eta)}"
                     )
-                    if display_message != current_message or (
+                    if round(
+                      diff % 15.00) == 0 and (display_message
+                                              != current_message) or (
                       downloaded == file_size):
                         await gdrive.edit(current_message)
                         display_message = current_message
@@ -656,7 +658,8 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
                 f"@ {humanbytes(speed)}`\n"
                 f"`ETA`    : {time_formatter(eta)}"
             )
-            if display_message != current_message or (
+            if round(diff % 15.00) == 0 and (
+              display_message != current_message) or (
               uploaded == file_size):
                 await gdrive.edit(current_message)
                 display_message = current_message
@@ -1280,7 +1283,7 @@ async def check_progress_for_dl(gdrive, gid, previous):
                     msg = previous
             else:
                 await gdrive.edit(f"`{msg}`")
-            await asyncio.sleep(5)
+            await asyncio.sleep(15)
             await check_progress_for_dl(gdrive, gid, previous)
             file = aria2.get_download(gid)
             complete = file.is_complete
