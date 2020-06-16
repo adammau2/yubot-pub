@@ -27,24 +27,17 @@ async def lyrics(lyric):
             return await lyric.edit(
                 "`No information current lastfm scrobbling...`"
             )
+            return False
         artist = playing.get_artist()
         song = playing.get_title()
     else:
         artist = lyric.pattern_match.group(2)
         song = lyric.pattern_match.group(3)
     await lyric.edit(f"`Searching lyrics for {artist} - {song}...`")
-    try:
-        songs = genius.search_song(song, artist)
-    except TypeError:
-        return await lyric.edit(
-            "`Error credentials for GENIUS_ACCESS_TOKEN."
-            "Use Client Access Token - click Generate Access Token "
-            "instead of Client ID or Client Secret "
-            "from`  https://genius.com/api-clients"
-        )
+    songs = genius.search_song(song, artist)
     if songs is None:
         await lyric.edit(f"`Song`  **{artist} - {song}**  `not found...`")
-        return
+        return False
     if len(songs.lyrics) > 4096:
         await lyric.edit("`Lyrics is too big, view the file to see it.`")
         with open("lyrics.txt", "w+") as f:
@@ -54,12 +47,14 @@ async def lyrics(lyric):
             "lyrics.txt",
             reply_to=lyric.id,
         )
-        return os.remove("lyrics.txt")
+        os.remove("lyrics.txt")
+        return True
     else:
-        return await lyric.edit(
+        await lyric.edit(
             f"**Search query**:\n`{artist}` - `{song}`"
             f"\n\n```{songs.lyrics}```"
         )
+        return True
 
 
 CMD_HELP.update({
